@@ -10,7 +10,7 @@ const PG_ROOT_PWD: &str = "postgres";
 
 pub type Db = Pool<Postgres>;
 
-pub async fn init() {
+pub async fn init_db() {
     new_db_pool(PG_HOST, PG_ROOT_DB, PG_ROOT_USER, PG_ROOT_PWD, 1).await;
 }
 
@@ -28,4 +28,15 @@ async fn new_db_pool(
         .connect_timeout(Duration::from_millis(500))
         .connect(&con_str)
         .await
+}
+
+// Unit test
+#[cfg(test)]
+mod tests {
+    use super::init_db;
+
+    #[tokio::test]
+    async fn model_db_init() -> Result<(), Box<dyn std::error::Error>> {
+        Ok(())
+    }
 }
